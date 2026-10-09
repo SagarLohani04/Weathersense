@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% block title %}Algorithm Showdown — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Algorithm Showdown</h1>
+    <p class="subtitle">Run the same weather input through every trained algorithm at once — see exactly where they agree, where they disagree, and which one wins and why</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Enter conditions to compare algorithms</div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+      <label>{{ form.city.label }}</label>
+      {{ form.city }}
+    </div>
+    <div class="form-row">
+      <label>{{ form.date.label }}</label>
+      {{ form.date }}
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label>{{ form.temperature.label }}</label>{{ form.temperature }}</div>
+      <div class="form-row"><label>{{ form.humidity.label }}</label>{{ form.humidity }}</div>
+      <div class="form-row"><label>{{ form.pressure.label }}</label>{{ form.pressure }}</div>
+      <div class="form-row"><label>{{ form.wind_speed.label }}</label>{{ form.wind_speed }}</div>
+      <div class="form-row"><label>{{ form.cloud_cover.label }}</label>{{ form.cloud_cover }}</div>
+      <div class="form-row"><label>{{ form.rainfall.label }}</label>{{ form.rainfall }}</div>
+      <div class="form-row"><label>{{ form.dew_point.label }}</label>{{ form.dew_point }}</div>
+    </div>
+    <button class="btn" type="submit" style="margin-top:8px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h11a5 5 0 0 1 5 5v1"/><path d="M16 21l4-4-4-4"/><path d="M20 17H9a5 5 0 0 1-5-5v-1"/></svg>
+      Run the Showdown
+    </button>
+  </form>
+</div>
+
+{% if not showdown %}
+  <div class="panel" style="margin-top:18px;">
+    <div class="empty-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h11a5 5 0 0 1 5 5v1"/><path d="M16 21l4-4-4-4"/><path d="M20 17H9a5 5 0 0 1-5-5v-1"/></svg>
+      <p>Fill in the form above and click <strong>Run the Showdown</strong> to see every algorithm's prediction side by side.</p>
+    </div>
+  </div>
+{% else %}
+
+  <!-- Top-line stats: how much the algorithms actually disagree -->
+  <div class="stat-strip">
+    <div class="stat-card">
+      <div class="stat-value">{{ showdown.distinct_conditions }}</div>
+      <div class="stat-label">Different conditions predicted</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{ showdown.agreement_pct }}%</div>
+      <div class="stat-label">Classifiers agreeing on top answer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">±{{ showdown.reg_spread }}°C</div>
+      <div class="stat-label">Temperature prediction spread</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">±{{ showdown.rain_spread }}%</div>
+      <div class="stat-label">Rainfall probability spread</div>
+    </div>
+  </div>
+
+  <!-- ============== CLASSIFICATION SHOWDOWN ============== -->
+  <div class="panel">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>
+      Weather Condition — every algorithm's prediction for {{ showdown.city }}, {{ showdown.date }}
+    </div>
+
+    <div class="agree-meter" id="agreeMeter"></div>
+
+    <div class="chart-wrap" style="margin-top:10px;">
+      <canvas id="clfChart"></canvas>
+    </div>
+
+    <div class="rank-list" style="margin-top:18px;">
+      {% for row in showdown.classification %}
+        <div class="rank-row {% if row.is_best %}is-best{% endif %}">
+          <div class="rank-medal">{{ forloop.counter }}</div>
+          <div class="rank-name">{{ row.name }}
+            {% if row.is_best %}<span class="crown-tag">★ BEST MODEL</span>{% endif %}
+          </div>
+          <div class="rank-bar-wrap"><div class="rank-bar-fill" style="width:{{ row.confidence }}%;"></div></div>
+          <div class="rank-figure">{{ row.prediction }}</div>
+          <div class="rank-meta">{{ row.confidence }}% conf.</div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if showdown_meta.classification.explanation %}
+      <div class="winner-callout">
+        <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+        <strong>Why {{ showdown_meta.classification.best_model_name }} wins:</strong> {{ showdown_meta.classification.explanation }}
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- ============== REGRESSION SHOWDOWN ============== -->
+  <div class="panel" style="margin-top:18px;">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M3 17l6-6 4 4 7-8"/></svg>
+      Next-Day Maximum Temperature — predicted value per algorithm
+    </div>
+    <div class="chart-wrap">
+      <canvas id="regChart"></canvas>
+    </div>
+    <div class="rank-list" style="margin-top:18px;">
+      {% for row in showdown.regression %}
+        <div class="rank-row {% if row.is_best %}is-best{% endif %}">
+          <div class="rank-medal">{{ forloop.counter }}</div>
+          <div class="rank-name">{{ row.name }}
+            {% if row.is_best %}<span class="crown-tag">★ BEST MODEL</span>{% endif %}
+          </div>
+          <div class="rank-figure">{{ row.prediction }}°C</div>
+          <div class="rank-meta">RMSE {{ row.rmse }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if showdown_meta.regression.explanation %}
+      <div class="winner-callout">
+        <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+        <strong>Why {{ showdown_meta.regression.best_model_name }} wins:</strong> {{ showdown_meta.regression.explanation }}
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- ============== RAINFALL SHOWDOWN ============== -->
+  <div class="panel" style="margin-top:18px;">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M16 13v8M12 13v8M8 13v8M18.4 9.6A5 5 0 0 0 9 6.5a4.5 4.5 0 0 0-1.8 8.6"/></svg>
+      Rainfall Probability (Tomorrow) — every algorithm's confidence
+    </div>
+    <div class="chart-wrap">
+      <canvas id="rainChart"></canvas>
+    </div>
+    <div class="rank-list" style="margin-top:18px;">
+      {% for row in showdown.rainfall %}
+        <div class="rank-row {% if row.is_best %}is-best{% endif %}">
+          <div class="rank-medal">{{ forloop.counter }}</div>
+          <div class="rank-name">{{ row.name }}
+            {% if row.is_best %}<span class="crown-tag">★ BEST MODEL</span>{% endif %}
+          </div>
+          <div class="rank-bar-wrap"><div class="rank-bar-fill" style="width:{{ row.probability }}%;"></div></div>
+          <div class="rank-figure">{{ row.probability }}%</div>
+          <div class="rank-meta">{{ row.prediction }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if showdown_meta.rainfall_prediction.explanation %}
+      <div class="winner-callout">
+        <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+        <strong>Why {{ showdown_meta.rainfall_prediction.best_model_name }} wins:</strong> {{ showdown_meta.rainfall_prediction.explanation }}
+      </div>
+    {% endif %}
+  </div>
+
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+{% if showdown_json %}
+<script>
+const sd = {{ showdown_json|safe }};
+const skyColor = '#47b9f0', tealColor = '#2fd4c0', amberColor = '#f2a93b', goldColor = '#e8c547';
+const palette = ['#47b9f0', '#2fd4c0', '#f2a93b', '#ef6a5f', '#9c8cf0', '#3ecf8e'];
+const gridColor = 'rgba(255,255,255,0.06)', textColor = '#8ea0b8';
+Chart.defaults.color = textColor;
+Chart.defaults.font.family = 'Inter, sans-serif';
+
+// --- Agreement meter: proportional segments per distinct predicted condition ---
+const meter = document.getElementById('agreeMeter');
+const counts = {};
+sd.classification.forEach(r => { counts[r.prediction] = (counts[r.prediction] || 0) + 1; });
+const total = sd.classification.length;
+let ci = 0;
+Object.entries(counts).sort((a,b) => b[1]-a[1]).forEach(([label, count]) => {
+  const seg = document.createElement('div');
+  seg.className = 'agree-seg';
+  seg.style.width = (count/total*100) + '%';
+  seg.style.background = palette[ci % palette.length];
+  seg.textContent = label + ' (' + count + ')';
+  meter.appendChild(seg);
+  ci++;
+});
+
+// --- Classification bar chart: confidence per algorithm, colored by predicted class ---
+const clfLabels = sd.classification.map(r => r.name);
+const clfConf = sd.classification.map(r => r.confidence);
+const clfColors = sd.classification.map(r => r.is_best ? goldColor : skyColor);
+new Chart(document.getElementById('clfChart'), {
+  type: 'bar',
+  data: { labels: clfLabels, datasets: [{ label: 'Confidence %', data: clfConf, backgroundColor: clfColors, borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+    tooltip: { callbacks: { afterLabel: (ctx) => 'Predicted: ' + sd.classification[ctx.dataIndex].prediction } } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Confidence %', color: textColor } } } }
+});
+
+// --- Regression bar chart: predicted temperature per algorithm ---
+const regLabels = sd.regression.map(r => r.name);
+const regVals = sd.regression.map(r => r.prediction);
+const regColors = sd.regression.map(r => r.is_best ? goldColor : tealColor);
+new Chart(document.getElementById('regChart'), {
+  type: 'bar',
+  data: { labels: regLabels, datasets: [{ label: 'Predicted °C', data: regVals, backgroundColor: regColors, borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Temperature (°C)', color: textColor } } } }
+});
+
+// --- Rainfall bar chart: probability per algorithm ---
+const rainLabels = sd.rainfall.map(r => r.name);
+const rainVals = sd.rainfall.map(r => r.probability);
+const rainColors = sd.rainfall.map(r => r.is_best ? goldColor : amberColor);
+new Chart(document.getElementById('rainChart'), {
+  type: 'bar',
+  data: { labels: rainLabels, datasets: [{ label: 'Rain probability %', data: rainVals, backgroundColor: rainColors, borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Rain probability %', color: textColor }, max: 100 } } }
+});
+</script>
+{% endif %}
+{% endblock %}

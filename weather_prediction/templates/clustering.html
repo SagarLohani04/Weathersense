@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Clustering — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Weather Clustering (K-Means)</h1>
+    <p class="subtitle">Unsupervised grouping of weather conditions, named from actual cluster statistics</p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title">Silhouette score by K (used to choose K = {{ clustering.best_k }})</div>
+    <div class="chart-wrap"><canvas id="silChart"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Clusters projected via PCA (2D)</div>
+    <div class="chart-wrap"><canvas id="pcaChart"></canvas></div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Cluster profiles</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Cluster</th><th>Name</th><th>Size</th><th>Avg Temp</th><th>Avg Humidity</th><th>Avg Pressure</th><th>Avg Wind</th><th>Avg Cloud</th><th>Avg Rainfall</th></tr></thead>
+    <tbody>
+    {% for row in cluster_rows %}
+      <tr>
+        <td>{{ row.id }}</td><td><strong>{{ row.name }}</strong></td><td>{{ row.size }}</td>
+        <td>{{ row.temperature }}</td><td>{{ row.humidity }}</td><td>{{ row.pressure }}</td>
+        <td>{{ row.wind_speed }}</td><td>{{ row.cloud_cover }}</td><td>{{ row.rainfall }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="9">Run <code>python train_models.py</code> to generate clustering results.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px; color:var(--text-faint); margin-top:10px;">Cluster names are assigned by examining each cluster's actual mean temperature, humidity, pressure, wind speed, cloud cover and rainfall — not assigned arbitrarily.</p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const cl = {{ clustering_json|safe }};
+const silLabels = Object.keys(cl.silhouette_scores || {});
+const silValues = Object.values(cl.silhouette_scores || {});
+new Chart(document.getElementById('silChart'), {
+  type: 'bar',
+  data: { labels: silLabels.map(k => 'K='+k), datasets: [{ data: silValues, backgroundColor: '#47b9f0', borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks:{color:'#8ea0b8'} }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} } } }
+});
+
+const pca = cl.pca_sample || {x:[], y:[], cluster:[]};
+const clusterNames = [...new Set(pca.cluster)];
+const palette = ['#47b9f0', '#f2a93b', '#2fd4c0', '#ef6a5f', '#9c8cf0'];
+const datasets = clusterNames.map((name, i) => ({
+  label: name,
+  data: pca.x.map((v, idx) => pca.cluster[idx] === name ? {x: v, y: pca.y[idx]} : null).filter(Boolean),
+  backgroundColor: palette[i % palette.length],
+  pointRadius: 2.5,
+}));
+new Chart(document.getElementById('pcaChart'), {
+  type: 'scatter',
+  data: { datasets },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8ea0b8' } } },
+    scales: { x: { title:{display:true,text:'PC1',color:'#8ea0b8'}, grid: { color:'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} },
+              y: { title:{display:true,text:'PC2',color:'#8ea0b8'}, grid: { color:'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} } } }
+});
+</script>
+{% endblock %}

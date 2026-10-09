@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Data Mining &amp; EDA — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Data Mining &amp; Exploratory Analysis</h1>
+    <p class="subtitle">Correlation analysis, seasonal breakdown and long-term trend detection</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Strongest correlations discovered in the dataset</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Variable 1</th><th>Variable 2</th><th>Correlation (r)</th><th>Relationship</th></tr></thead>
+    <tbody>
+    {% for c in eda.strongest_correlations %}
+      <tr>
+        <td>{{ c.var1 }}</td><td>{{ c.var2 }}</td><td>{{ c.correlation }}</td>
+        <td>{% if c.correlation > 0 %}<span class="badge low">Positive</span>{% else %}<span class="badge high">Negative</span>{% endif %}</td>
+      </tr>
+    {% empty %}<tr><td colspan="4">Run <code>python train_models.py</code> to populate EDA results.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Seasonal analysis</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Season</th><th>Avg Temperature (°C)</th><th>Avg Rainfall (mm)</th><th>Avg Humidity (%)</th><th>Avg Wind Speed</th><th>Extreme Events</th></tr></thead>
+    <tbody>
+    {% for season, stats in seasonal.items %}
+      <tr>
+        <td>{{ season }}</td><td>{{ stats.avg_temperature }}</td><td>{{ stats.avg_rainfall }}</td>
+        <td>{{ stats.avg_humidity }}</td><td>{{ stats.avg_wind_speed }}</td><td>{{ stats.extreme_events }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Long-term trend analysis (Mann-Kendall test + Sen's slope)</div>
+  <form method="get" class="filter-bar" style="margin-bottom:14px;">
+    <div class="form-row">
+      <label>City</label>
+      <select name="trend_city" class="form-control">
+        {% for c in cities %}<option value="{{ c }}" {% if c == trend_city %}selected{% endif %}>{{ c }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Variable</label>
+      <select name="trend_var" class="form-control">
+        <option value="temperature" {% if trend_var == 'temperature' %}selected{% endif %}>Temperature</option>
+        <option value="rainfall" {% if trend_var == 'rainfall' %}selected{% endif %}>Rainfall</option>
+        <option value="humidity" {% if trend_var == 'humidity' %}selected{% endif %}>Humidity</option>
+      </select>
+    </div>
+    <div class="form-row"><button class="btn" type="submit">Analyze trend</button></div>
+  </form>
+
+  {% if trend_summary %}
+    <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="kpi-card"><div class="kpi-label">Detected trend</div><div class="kpi-value" style="font-size:18px;">{{ trend_summary.mann_kendall.trend }}</div></div>
+      <div class="kpi-card teal"><div class="kpi-label">Mann-Kendall p-value</div><div class="kpi-value">{{ trend_summary.mann_kendall.p_value }}</div></div>
+      <div class="kpi-card amber"><div class="kpi-label">Sen's slope (per month)</div><div class="kpi-value">{{ trend_summary.sens_slope_per_period }}</div></div>
+    </div>
+    <div class="chart-wrap tall"><canvas id="trendChart"></canvas></div>
+    <p class="note-box" style="margin-top:12px;">This trend is computed purely from the synthetic dataset generated for this project and does not represent a real-world climate claim.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if trend_data %}
+<script>
+const td = {{ trend_data|safe }};
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: { labels: td.labels, datasets: [
+    { label: 'Monthly average', data: td.values, borderColor: '#47b9f0', pointRadius: 0, borderWidth: 1.5, tension: 0.25 },
+    { label: '6-month moving average', data: td.moving_average, borderColor: '#f2a93b', pointRadius: 0, borderWidth: 2, tension: 0.25 },
+  ]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8ea0b8' } } },
+    scales: { x: { grid: { display: false }, ticks: { color:'#8ea0b8', maxTicksLimit: 12 } }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} } } }
+});
+</script>
+{% endif %}
+{% endblock %}

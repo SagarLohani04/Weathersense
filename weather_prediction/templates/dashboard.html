@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>WeatherSense AI Dashboard</h1>
+    <p class="subtitle">Intelligent weather analytics &amp; prediction, built on {{ kpis.total_records }} processed records</p>
+  </div>
+</div>
+
+<a href="{% url 'weather:algorithm_showdown' %}" class="panel" style="display:flex; align-items:center; gap:16px; margin-bottom:18px; border-left:3px solid var(--gold); text-decoration:none; transition:transform 0.18s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;color:var(--gold);flex-shrink:0;"><path d="M8 3 4 7l4 4"/><path d="M4 7h11a5 5 0 0 1 5 5v1"/><path d="M16 21l4-4-4-4"/><path d="M20 17H9a5 5 0 0 1-5-5v-1"/></svg>
+  <div style="flex:1;">
+    <div style="color:var(--text); font-weight:600; font-size:15px;">New: Algorithm Showdown <span class="nav-badge" style="margin-left:8px;">NEW</span></div>
+    <div style="color:var(--text-muted); font-size:13px; margin-top:2px;">Run one weather input through every trained algorithm at once — see each one's prediction, where they disagree, and which wins and why.</div>
+  </div>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--text-faint);flex-shrink:0;"><path d="M9 18l6-6-6-6"/></svg>
+</a>
+
+<form method="get" class="filter-bar panel">
+  <div class="form-row">
+    <label>City</label>
+    <select name="city" class="form-control">
+      <option value="">All cities</option>
+      {% for c in cities %}<option value="{{ c }}" {% if selected.city == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>Year</label>
+    <select name="year" class="form-control">
+      <option value="">All years</option>
+      {% for y in years %}<option value="{{ y }}" {% if selected.year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>Season</label>
+    <select name="season" class="form-control">
+      <option value="">All seasons</option>
+      {% for s in seasons %}<option value="{{ s }}" {% if selected.season == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>Condition</label>
+    <select name="condition" class="form-control">
+      <option value="">All conditions</option>
+      {% for c in conditions %}<option value="{{ c }}" {% if selected.condition == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <button class="btn" type="submit">Apply filters</button>
+  </div>
+</form>
+
+<div class="kpi-row">
+  <div class="kpi-card"><div class="kpi-label">Total Records</div><div class="kpi-value">{{ kpis.total_records }}</div></div>
+  <div class="kpi-card amber"><div class="kpi-label">Avg Temperature</div><div class="kpi-value">{{ kpis.avg_temperature }}<span class="kpi-unit">°C</span></div></div>
+  <div class="kpi-card coral"><div class="kpi-label">Max Temperature</div><div class="kpi-value">{{ kpis.max_temperature }}<span class="kpi-unit">°C</span></div></div>
+  <div class="kpi-card"><div class="kpi-label">Min Temperature</div><div class="kpi-value">{{ kpis.min_temperature }}<span class="kpi-unit">°C</span></div></div>
+  <div class="kpi-card teal"><div class="kpi-label">Avg Humidity</div><div class="kpi-value">{{ kpis.avg_humidity }}<span class="kpi-unit">%</span></div></div>
+  <div class="kpi-card teal"><div class="kpi-label">Total Rainfall</div><div class="kpi-value">{{ kpis.total_rainfall }}<span class="kpi-unit">mm</span></div></div>
+  <div class="kpi-card violet"><div class="kpi-label">Extreme Events</div><div class="kpi-value">{{ kpis.extreme_events }}</div></div>
+  <div class="kpi-card coral"><div class="kpi-label">Anomalies (dataset-wide)</div><div class="kpi-value">{{ kpis.num_anomalies }}</div></div>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title">Temperature trend (monthly average)</div>
+    <div class="chart-wrap"><canvas id="tempTrend"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Rainfall trend (monthly average)</div>
+    <div class="chart-wrap"><canvas id="rainTrend"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:18px;">
+  <div class="panel">
+    <div class="panel-title">Humidity trend</div>
+    <div class="chart-wrap"><canvas id="humTrend"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Wind speed trend</div>
+    <div class="chart-wrap"><canvas id="windTrend"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-2" style="margin-top:18px;">
+  <div class="panel">
+    <div class="panel-title">Weather condition distribution</div>
+    <div class="chart-wrap"><canvas id="conditionDist"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">City comparison — average temperature (°C)</div>
+    <div class="chart-wrap"><canvas id="cityCompare"></canvas></div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Recent anomalies detected</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Date</th><th>City</th><th>Parameter</th><th>Value</th><th>Expected Range</th><th>Severity</th></tr></thead>
+    <tbody>
+    {% for a in recent_anomalies %}
+      <tr>
+        <td>{{ a.date }}</td><td>{{ a.city }}</td><td>{{ a.parameter }}</td>
+        <td>{{ a.value }}</td><td>{{ a.expected_range }}</td>
+        <td><span class="badge {{ a.severity|lower }}">{{ a.severity }}</span></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6">No anomalies found in the current results file. Run <code>python train_models.py</code> first.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const skyColor = '#47b9f0', tealColor = '#2fd4c0', amberColor = '#f2a93b', coralColor='#ef6a5f';
+const gridColor = 'rgba(255,255,255,0.06)', textColor = '#8ea0b8';
+
+Chart.defaults.color = textColor;
+Chart.defaults.font.family = 'Inter, sans-serif';
+Chart.defaults.borderColor = gridColor;
+
+function lineChart(ctx, data, color) {
+  return new Chart(ctx, {
+    type: 'line',
+    data: { labels: data.labels, datasets: [{ data: data.values, borderColor: color, backgroundColor: color+'22', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { grid: { display: false } }, y: { grid: { color: gridColor } } } }
+  });
+}
+
+lineChart(document.getElementById('tempTrend'), {{ temp_trend|safe }}, coralColor);
+lineChart(document.getElementById('rainTrend'), {{ rainfall_trend|safe }}, skyColor);
+lineChart(document.getElementById('humTrend'), {{ humidity_trend|safe }}, tealColor);
+lineChart(document.getElementById('windTrend'), {{ wind_trend|safe }}, amberColor);
+
+const condDist = {{ condition_dist|safe }};
+new Chart(document.getElementById('conditionDist'), {
+  type: 'doughnut',
+  data: { labels: condDist.labels, datasets: [{ data: condDist.values,
+    backgroundColor: [skyColor, tealColor, amberColor, coralColor, '#9c8cf0', '#3ecf8e', '#5c7089'] }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12 } } } }
+});
+
+const cityCompare = {{ city_compare|safe }};
+const cityLabels = Object.keys(cityCompare);
+const cityTemps = cityLabels.map(c => cityCompare[c].avg_temperature);
+new Chart(document.getElementById('cityCompare'), {
+  type: 'bar',
+  data: { labels: cityLabels, datasets: [{ data: cityTemps, backgroundColor: skyColor, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false } }, y: { grid: { color: gridColor } } } }
+});
+</script>
+{% endblock %}

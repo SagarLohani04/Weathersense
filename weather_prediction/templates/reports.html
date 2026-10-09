@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Reports — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Reports</h1>
+    <p class="subtitle">Generate a consolidated PDF covering data quality, EDA, clustering, anomalies and model performance</p>
+  </div>
+</div>
+
+<div class="panel">
+  {% if results_available %}
+    <p style="color:var(--text-muted);">The report is generated fresh from <code>data/model_results.json</code> (produced by <code>train_models.py</code>), so it always reflects your latest training run.</p>
+    <a class="btn" href="{% url 'weather:download_report' %}">Download PDF Report</a>
+  {% else %}
+    <div class="warn-box">No trained results found yet. Run <code>python train_models.py</code> first, then reload this page.</div>
+  {% endif %}
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Report contents</div>
+  <ul class="factor-list">
+    <li>Dataset summary &amp; data-quality analysis</li>
+    <li>Correlation highlights</li>
+    <li>Clustering results (K-Means)</li>
+    <li>Anomaly detection summary</li>
+    <li>Model comparison (classification, regression, rainfall prediction)</li>
+    <li>Conclusions and disclaimers</li>
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}Model Comparison — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Model Comparison</h1>
+    <p class="subtitle">Every metric below comes from an actual trained-and-evaluated model — nothing hard-coded</p>
+  </div>
+  <a class="btn secondary" href="{% url 'weather:algorithm_showdown' %}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h11a5 5 0 0 1 5 5v1"/><path d="M16 21l4-4-4-4"/><path d="M20 17H9a5 5 0 0 1-5-5v-1"/></svg>
+    Try the Algorithm Showdown
+  </a>
+</div>
+
+<!-- ============== CLASSIFICATION ============== -->
+<div class="panel">
+  <div class="panel-title">Weather condition classification {% if classification.best_model_name %}— best: <strong style="color:var(--gold)">{{ classification.best_model_name }}</strong>{% endif %}</div>
+  <div class="chart-wrap"><canvas id="clfChart"></canvas></div>
+  <div class="scroll-x" style="margin-top:16px;">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in classification.results.items %}
+      <tr {% if name == classification.best_model_name %}style="background:rgba(232,197,71,0.08)"{% endif %}>
+        <td>{{ name }}{% if name == classification.best_model_name %} <span class="crown-tag">★ BEST</span>{% endif %}</td>
+        <td>{{ m.accuracy }}</td><td>{{ m.precision }}</td><td>{{ m.recall }}</td><td>{{ m.f1_score }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div>
+      <div class="panel-title">Accuracy, Precision, Recall &amp; F1 Score by model</div>
+      <div class="chart-wrap tall"><canvas id="clfMetricsChart"></canvas></div>
+    </div>
+    <div>
+      <div class="panel-title">Training time by model (seconds)</div>
+      <div class="chart-wrap tall"><canvas id="clfTimeChart"></canvas></div>
+    </div>
+  </div>
+  {% if showdown_meta.classification.explanation %}
+  <div class="winner-callout">
+    <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+    <strong>Why {{ showdown_meta.classification.best_model_name }} wins:</strong> {{ showdown_meta.classification.explanation }}
+  </div>
+  {% endif %}
+</div>
+
+<!-- ============== REGRESSION ============== -->
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Next-day maximum temperature regression {% if regression.best_model_name %}— best: <strong style="color:var(--gold)">{{ regression.best_model_name }}</strong>{% endif %}</div>
+  <div class="chart-wrap"><canvas id="regChart"></canvas></div>
+  <div class="scroll-x" style="margin-top:16px;">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>R²</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in regression.results.items %}
+      <tr {% if name == regression.best_model_name %}style="background:rgba(232,197,71,0.08)"{% endif %}>
+        <td>{{ name }}{% if name == regression.best_model_name %} <span class="crown-tag">★ BEST</span>{% endif %}</td>
+        <td>{{ m.mae }}</td><td>{{ m.mse }}</td><td>{{ m.rmse }}</td><td>{{ m.r2 }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <div class="grid-2" style="margin-top:18px;">
+    <div>
+      <div class="panel-title">MAE, MSE &amp; RMSE by model (lower is better)</div>
+      <div class="chart-wrap tall"><canvas id="regErrChart"></canvas></div>
+    </div>
+    <div>
+      <div class="panel-title">R&sup2; score by model (higher is better)</div>
+      <div class="chart-wrap tall"><canvas id="regR2Chart"></canvas></div>
+    </div>
+    <div>
+      <div class="panel-title">Training time by model (seconds)</div>
+      <div class="chart-wrap tall"><canvas id="regTimeChart"></canvas></div>
+    </div>
+  </div>
+  {% if showdown_meta.regression.explanation %}
+  <div class="winner-callout">
+    <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+    <strong>Why {{ showdown_meta.regression.best_model_name }} wins:</strong> {{ showdown_meta.regression.explanation }}
+  </div>
+  {% endif %}
+</div>
+
+<!-- ============== RAINFALL ============== -->
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Rainfall next-day prediction {% if rainfall.best_model_name %}— best: <strong style="color:var(--gold)">{{ rainfall.best_model_name }}</strong>{% endif %}</div>
+  <div class="chart-wrap"><canvas id="rainChart"></canvas></div>
+  <div class="scroll-x" style="margin-top:16px;">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in rainfall.results.items %}
+      <tr {% if name == rainfall.best_model_name %}style="background:rgba(232,197,71,0.08)"{% endif %}>
+        <td>{{ name }}{% if name == rainfall.best_model_name %} <span class="crown-tag">★ BEST</span>{% endif %}</td>
+        <td>{{ m.accuracy }}</td><td>{{ m.precision }}</td><td>{{ m.recall }}</td><td>{{ m.f1_score }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <div class="grid-2" style="margin-top:18px;">
+    <div>
+      <div class="panel-title">Accuracy, Precision, Recall &amp; F1 Score by model</div>
+      <div class="chart-wrap tall"><canvas id="rainMetricsChart"></canvas></div>
+    </div>
+    <div>
+      <div class="panel-title">Training time by model (seconds)</div>
+      <div class="chart-wrap tall"><canvas id="rainTimeChart"></canvas></div>
+    </div>
+  </div>
+  {% if showdown_meta.rainfall_prediction.explanation %}
+  <div class="winner-callout">
+    <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4"/></svg>
+    <strong>Why {{ showdown_meta.rainfall_prediction.best_model_name }} wins:</strong> {{ showdown_meta.rainfall_prediction.explanation }}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const cd = {{ chart_data_json|safe }};
+const skyColor = '#47b9f0', goldColor = '#e8c547', textColor = '#8ea0b8', gridColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = textColor;
+Chart.defaults.font.family = 'Inter, sans-serif';
+
+function barChart(canvasId, data, metricLabel, higherIsBetter) {
+  const colors = data.labels.map(l => l === data.best ? goldColor : skyColor);
+  new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: { labels: data.labels, datasets: [{ label: metricLabel, data: data.values, backgroundColor: colors, borderRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+      scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+                y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: metricLabel, color: textColor } } } }
+  });
+}
+
+// --- Graphs for the classification table: Accuracy / Precision / Recall / F1 + Training Time ---
+const cm = cd.classification_metrics;
+const allScores = [].concat(cm.accuracy, cm.precision, cm.recall, cm.f1);
+const yMin = Math.max(0, Math.floor((Math.min(...allScores) - 0.05) * 10) / 10);
+new Chart(document.getElementById('clfMetricsChart'), {
+  type: 'bar',
+  data: { labels: cm.labels, datasets: [
+    { label: 'Accuracy',  data: cm.accuracy,  backgroundColor: '#47b9f0', borderRadius: 3 },
+    { label: 'Precision', data: cm.precision, backgroundColor: '#2fd4c0', borderRadius: 3 },
+    { label: 'Recall',    data: cm.recall,    backgroundColor: '#f2a93b', borderRadius: 3 },
+    { label: 'F1 Score',  data: cm.f1,        backgroundColor: '#e8c547', borderRadius: 3 },
+  ]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: textColor } } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { min: yMin, max: 1, grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Score (axis starts at ' + yMin + ')', color: textColor } } } }
+});
+new Chart(document.getElementById('clfTimeChart'), {
+  type: 'bar',
+  data: { labels: cm.labels, datasets: [{ label: 'Training time (s)', data: cm.time,
+    backgroundColor: cm.labels.map(l => l === cm.best ? goldColor : '#9c8cf0'), borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Seconds', color: textColor } } } }
+});
+
+// --- Graphs for the regression table: MAE/MSE/RMSE, R2, Training Time ---
+const rm = cd.regression_metrics;
+new Chart(document.getElementById('regErrChart'), {
+  type: 'bar',
+  data: { labels: rm.labels, datasets: [
+    { label: 'MAE',  data: rm.mae,  backgroundColor: '#47b9f0', borderRadius: 3 },
+    { label: 'MSE',  data: rm.mse,  backgroundColor: '#ef6a5f', borderRadius: 3 },
+    { label: 'RMSE', data: rm.rmse, backgroundColor: '#e8c547', borderRadius: 3 },
+  ]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: textColor } } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Error (lower is better)', color: textColor } } } }
+});
+const r2Min = Math.floor((Math.min(...rm.r2) - 0.005) * 100) / 100;
+new Chart(document.getElementById('regR2Chart'), {
+  type: 'bar',
+  data: { labels: rm.labels, datasets: [{ label: 'R2', data: rm.r2,
+    backgroundColor: rm.labels.map(l => l === rm.best ? goldColor : '#2fd4c0'), borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { min: r2Min, max: 1, grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'R2 (axis starts at ' + r2Min + ')', color: textColor } } } }
+});
+new Chart(document.getElementById('regTimeChart'), {
+  type: 'bar',
+  data: { labels: rm.labels, datasets: [{ label: 'Training time (s)', data: rm.time,
+    backgroundColor: rm.labels.map(l => l === rm.best ? goldColor : '#9c8cf0'), borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Seconds', color: textColor } } } }
+});
+
+// --- Graphs for the rainfall table: Accuracy/Precision/Recall/F1 + Training Time ---
+const rn = cd.rainfall_metrics;
+const rnScores = [].concat(rn.accuracy, rn.precision, rn.recall, rn.f1);
+const rnMin = Math.max(0, Math.floor((Math.min(...rnScores) - 0.05) * 10) / 10);
+new Chart(document.getElementById('rainMetricsChart'), {
+  type: 'bar',
+  data: { labels: rn.labels, datasets: [
+    { label: 'Accuracy',  data: rn.accuracy,  backgroundColor: '#47b9f0', borderRadius: 3 },
+    { label: 'Precision', data: rn.precision, backgroundColor: '#2fd4c0', borderRadius: 3 },
+    { label: 'Recall',    data: rn.recall,    backgroundColor: '#f2a93b', borderRadius: 3 },
+    { label: 'F1 Score',  data: rn.f1,        backgroundColor: '#e8c547', borderRadius: 3 },
+  ]},
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: textColor } } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { min: rnMin, max: 1, grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Score (axis starts at ' + rnMin + ')', color: textColor } } } }
+});
+new Chart(document.getElementById('rainTimeChart'), {
+  type: 'bar',
+  data: { labels: rn.labels, datasets: [{ label: 'Training time (s)', data: rn.time,
+    backgroundColor: rn.labels.map(l => l === rn.best ? goldColor : '#9c8cf0'), borderRadius: 5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks: { color: textColor } },
+              y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Seconds', color: textColor } } } }
+});
+
+barChart('clfChart', cd.classification, 'Weighted F1 Score (higher is better)');
+barChart('regChart', cd.regression, 'RMSE °C (lower is better)');
+barChart('rainChart', cd.rainfall, 'Weighted F1 Score (higher is better)');
+</script>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Forecast — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Future Weather Forecast</h1>
+    <p class="subtitle">SARIMA time-series forecasting with chronological backtesting (no shuffled leakage)</p>
+  </div>
+</div>
+
+<form method="get" class="filter-bar panel">
+  <div class="form-row">
+    <label>City</label>
+    <select name="city" class="form-control">
+      {% for c in form.city.field.choices %}<option value="{{ c.0 }}" {% if c.0 == city %}selected{% endif %}>{{ c.0 }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <label>Variable</label>
+    <select name="variable" class="form-control">
+      <option value="temperature" {% if variable == 'temperature' %}selected{% endif %}>Temperature</option>
+      <option value="rainfall" {% if variable == 'rainfall' %}selected{% endif %}>Rainfall</option>
+      <option value="humidity" {% if variable == 'humidity' %}selected{% endif %}>Humidity</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label>Horizon</label>
+    <select name="horizon" class="form-control">
+      <option value="7" {% if horizon == 7 %}selected{% endif %}>7 Days</option>
+      <option value="14" {% if horizon == 14 %}selected{% endif %}>14 Days</option>
+      <option value="30" {% if horizon == 30 %}selected{% endif %}>30 Days</option>
+    </select>
+  </div>
+  <div class="form-row"><button class="btn" type="submit">Generate forecast</button></div>
+</form>
+
+{% if error %}
+  <div class="warn-box">{{ error }}</div>
+{% elif forecast_table %}
+  <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="kpi-card"><div class="kpi-label">Backtest MAE (last {{ horizon }} days)</div><div class="kpi-value">{{ forecast_table.backtest_mae }}</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Backtest RMSE</div><div class="kpi-value">{{ forecast_table.backtest_rmse }}</div></div>
+    <div class="kpi-card teal"><div class="kpi-label">Forecast horizon</div><div class="kpi-value">{{ horizon }}<span class="kpi-unit">days</span></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">{{ city }} — {{ variable|title }} forecast</div>
+    <div class="chart-wrap tall"><canvas id="forecastChart"></canvas></div>
+  </div>
+
+  <div class="panel" style="margin-top:18px;">
+    <div class="panel-title">Forecast table</div>
+    <div class="scroll-x">
+    <table class="data-table">
+      <thead><tr><th>Date</th><th>Predicted {{ variable|title }}</th><th>Risk Level</th></tr></thead>
+      <tbody>
+      {% for r in forecast_table.risk_rows %}
+        <tr><td>{{ r.date }}</td><td>{{ r.value }}</td><td><span class="badge {{ r.risk_level|lower }}">{{ r.risk_level }}</span></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+{% if forecast_result %}
+<script>
+const fc = {{ forecast_result|safe }};
+new Chart(document.getElementById('forecastChart'), {
+  type: 'line',
+  data: {
+    labels: fc.dates,
+    datasets: [
+      { label: 'Forecast', data: fc.forecast, borderColor: '#47b9f0', backgroundColor: '#47b9f022', fill: false, tension: 0.3, borderWidth: 2, pointRadius: 2 },
+      { label: 'Upper bound', data: fc.upper_bound, borderColor: 'rgba(242,169,59,0.5)', borderDash: [4,4], pointRadius: 0, fill: false, borderWidth: 1 },
+      { label: 'Lower bound', data: fc.lower_bound, borderColor: 'rgba(242,169,59,0.5)', borderDash: [4,4], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(242,169,59,0.08)', borderWidth: 1 },
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8ea0b8' } } },
+    scales: { x: { grid: { display: false }, ticks: { color:'#8ea0b8' } }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color:'#8ea0b8' } } } }
+});
+</script>
+{% endif %}
+{% endblock %}

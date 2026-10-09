@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}City Comparison — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>City Comparison</h1>
+    <p class="subtitle">Compare temperature, rainfall, humidity and extreme events across cities</p>
+  </div>
+</div>
+
+<form method="get" class="panel" style="margin-bottom:18px;">
+  <label>Select cities to compare</label>
+  <div class="pill-row">
+    {% for c in all_cities %}
+      <label class="pill" style="cursor:pointer;">
+        <input type="checkbox" name="cities" value="{{ c }}" {% if c in selected %}checked{% endif %} style="margin-right:6px;">{{ c }}
+      </label>
+    {% endfor %}
+  </div>
+  <button class="btn" type="submit" style="margin-top:14px;">Compare</button>
+</form>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title">Average temperature by city</div>
+    <div class="chart-wrap"><canvas id="tempChart"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Total rainfall by city</div>
+    <div class="chart-wrap"><canvas id="rainChart"></canvas></div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Detailed comparison</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>City</th><th>Avg Temp</th><th>Avg Rainfall</th><th>Total Rainfall</th><th>Avg Humidity</th><th>Avg Wind</th><th>Extreme Events</th></tr></thead>
+    <tbody>
+    {% for city, stats in comparison.items %}
+      <tr>
+        <td>{{ city }}</td><td>{{ stats.avg_temperature }}</td><td>{{ stats.avg_rainfall }}</td>
+        <td>{{ stats.total_rainfall }}</td><td>{{ stats.avg_humidity }}</td><td>{{ stats.avg_wind_speed }}</td><td>{{ stats.extreme_events }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const comp = {{ comparison_json|safe }};
+const cities = Object.keys(comp);
+const palette = ['#47b9f0', '#f2a93b', '#2fd4c0', '#ef6a5f', '#9c8cf0', '#3ecf8e'];
+
+new Chart(document.getElementById('tempChart'), {
+  type: 'bar',
+  data: { labels: cities, datasets: [{ data: cities.map(c => comp[c].avg_temperature), backgroundColor: palette, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks:{color:'#8ea0b8'} }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} } } }
+});
+new Chart(document.getElementById('rainChart'), {
+  type: 'bar',
+  data: { labels: cities, datasets: [{ data: cities.map(c => comp[c].total_rainfall), backgroundColor: palette, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { display: false }, ticks:{color:'#8ea0b8'} }, y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} } } }
+});
+</script>
+{% endblock %}

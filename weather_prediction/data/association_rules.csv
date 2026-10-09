@@ -1,0 +1,332 @@
+antecedents,consequents,support,confidence,lift
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Temperature, Moderate Wind Speed",0.032,0.48,6.422
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure, Moderate Temperature",0.032,0.47,6.218
+"High Cloud Cover, Moderate Pressure, Moderate Temperature","High Humidity, High Rainfall, Moderate Wind Speed",0.032,0.597,6.058
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Temperature",0.032,0.594,6.052
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Temperature, Moderate Wind Speed",0.04,0.452,6.048
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Temperature",0.039,0.592,6.033
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Temperature",0.04,0.587,5.986
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Wind Speed",0.038,0.584,5.933
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Pressure, Moderate Temperature",0.039,0.446,5.902
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure",0.032,0.58,5.847
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Temperature",0.05,0.572,5.832
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Temperature, Moderate Wind Speed",0.032,0.49,5.802
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Pressure, Moderate Wind Speed",0.032,0.449,5.789
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure",0.038,0.572,5.768
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Temperature, Moderate Wind Speed",0.032,0.484,5.726
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Temperature, Moderate Wind Speed",0.034,0.427,5.718
+"High Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Wind Speed","High Humidity, High Rainfall",0.032,0.74,5.718
+"High Cloud Cover, Moderate Pressure, Moderate Visibility","High Humidity, High Rainfall, Moderate Temperature",0.033,0.56,5.705
+"High Cloud Cover, Moderate Pressure, Moderate Visibility","High Humidity, High Rainfall, Moderate Wind Speed",0.033,0.562,5.705
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Wind Speed",0.04,0.561,5.698
+"High Cloud Cover, Moderate Pressure, Moderate Temperature","High Humidity, High Rainfall",0.039,0.736,5.688
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Pressure, Moderate Wind Speed",0.038,0.441,5.676
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Temperature",0.034,0.555,5.655
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Temperature, Moderate Visibility",0.034,0.498,5.653
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Temperature, Moderate Visibility",0.033,0.497,5.641
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Humidity, High Rainfall",0.04,0.725,5.602
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Visibility, Moderate Wind Speed",0.033,0.499,5.599
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Humidity, High Rainfall",0.038,0.723,5.588
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Pressure",0.039,0.554,5.584
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Wind Speed",0.048,0.549,5.577
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall",0.048,0.721,5.573
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Temperature",0.043,0.544,5.543
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Temperature, Moderate Wind Speed",0.04,0.468,5.54
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Temperature, Moderate Visibility",0.043,0.488,5.536
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Pressure, Moderate Temperature",0.033,0.418,5.525
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall",0.048,0.714,5.517
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall",0.05,0.71,5.492
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure",0.033,0.545,5.486
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Pressure",0.048,0.544,5.477
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Temperature",0.032,0.478,5.458
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure, Moderate Visibility",0.033,0.489,5.439
+"High Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall",0.033,0.702,5.429
+"High Cloud Cover, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall, Moderate Wind Speed",0.034,0.534,5.42
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Temperature",0.032,0.474,5.409
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Pressure, Moderate Wind Speed",0.033,0.419,5.404
+High Cloud Cover,"High Humidity, High Rainfall",0.061,0.697,5.385
+High Cloud Cover,"High Rainfall, Moderate Temperature, Moderate Wind Speed",0.04,0.455,5.384
+"High Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.034,0.693,5.353
+"High Cloud Cover, Moderate Pressure, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.033,0.692,5.35
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Wind Speed",0.041,0.526,5.343
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Visibility, Moderate Wind Speed",0.034,0.476,5.341
+"High Cloud Cover, Moderate Pressure, Moderate Visibility","High Humidity, High Rainfall",0.04,0.69,5.335
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Visibility, Moderate Wind Speed",0.041,0.472,5.297
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.041,0.683,5.281
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Pressure, Moderate Temperature",0.039,0.462,5.275
+"High Cloud Cover, Moderate Pressure, Moderate Temperature","High Humidity, High Rainfall, Moderate Visibility",0.033,0.618,5.27
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Visibility",0.033,0.617,5.265
+"High Cloud Cover, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall, Moderate Pressure",0.033,0.522,5.259
+"High Cloud Cover, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall",0.043,0.679,5.25
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Visibility",0.034,0.615,5.242
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Temperature, Moderate Wind Speed",0.034,0.443,5.242
+"High Cloud Cover, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Visibility",0.041,0.613,5.231
+"High Cloud Cover, Moderate Pressure","High Humidity, High Rainfall, Moderate Visibility",0.04,0.613,5.227
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.032,0.605,5.212
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Temperature",0.039,0.605,5.207
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall, Moderate Pressure",0.04,0.515,5.19
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Pressure, Moderate Visibility",0.033,0.465,5.178
+"High Cloud Cover, Moderate Temperature","High Humidity, High Rainfall, Moderate Visibility",0.043,0.606,5.166
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.032,0.599,5.155
+"High Cloud Cover, Moderate Visibility","High Humidity, High Rainfall",0.052,0.667,5.153
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.04,0.597,5.144
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Pressure, Moderate Visibility",0.04,0.462,5.141
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Temperature",0.039,0.596,5.131
+High Cloud Cover,"High Rainfall, Moderate Pressure, Moderate Temperature",0.039,0.449,5.127
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Temperature",0.05,0.593,5.103
+High Cloud Cover,"High Humidity, High Rainfall, Moderate Visibility",0.052,0.598,5.1
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Temperature, Moderate Wind Speed",0.034,0.431,5.096
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.04,0.591,5.09
+High Cloud Cover,"High Rainfall, Moderate Temperature",0.051,0.579,4.989
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Pressure, Moderate Temperature",0.033,0.433,4.942
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Temperature",0.033,0.572,4.926
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.032,0.602,4.887
+"High Cloud Cover, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.032,0.601,4.88
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Temperature, Moderate Visibility",0.033,0.508,4.876
+"High Cloud Cover, High Humidity, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.034,0.565,4.869
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Temperature, Moderate Visibility",0.034,0.507,4.865
+"High Cloud Cover, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Temperature",0.033,0.564,4.858
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Temperature",0.043,0.564,4.854
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Temperature, Moderate Visibility",0.043,0.505,4.852
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Wind Speed",0.038,0.597,4.843
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Wind Speed",0.032,0.461,4.838
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Temperature, Moderate Visibility",0.034,0.502,4.82
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Wind Speed",0.039,0.594,4.819
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.034,0.559,4.814
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Temperature, Moderate Visibility",0.033,0.501,4.811
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Pressure, Moderate Temperature",0.033,0.421,4.805
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Pressure, Moderate Wind Speed",0.038,0.456,4.791
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Wind Speed",0.032,0.453,4.755
+High Cloud Cover,"High Rainfall, Moderate Temperature, Moderate Visibility",0.043,0.495,4.754
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Temperature",0.043,0.552,4.752
+High Cloud Cover,"High Rainfall, Moderate Pressure, Moderate Wind Speed",0.039,0.448,4.701
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.04,0.576,4.67
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.033,0.574,4.659
+"High Cloud Cover, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.034,0.573,4.646
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Wind Speed",0.048,0.569,4.616
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.033,0.51,4.613
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.034,0.509,4.602
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.04,0.565,4.583
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Pressure, Moderate Wind Speed",0.033,0.435,4.564
+High Cloud Cover,"High Rainfall, Moderate Wind Speed",0.049,0.557,4.515
+"High Temperature, High Visibility, Moderate Humidity",Heatwave,0.033,0.403,4.513
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.032,0.587,4.498
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Pressure, Moderate Wind Speed",0.034,0.427,4.487
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.032,0.585,4.482
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.038,0.582,4.462
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.039,0.582,4.458
+"Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall, Moderate Pressure",0.053,0.442,4.456
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.034,0.548,4.447
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.041,0.545,4.426
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.041,0.489,4.424
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.034,0.488,4.418
+"Moderate Pressure, Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.053,0.566,4.374
+"High Cloud Cover, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.034,0.538,4.364
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Pressure",0.039,0.568,4.355
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.034,0.48,4.34
+High Cloud Cover,"High Rainfall, Moderate Visibility, Moderate Wind Speed",0.042,0.479,4.337
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.042,0.534,4.335
+"Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.067,0.56,4.328
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Pressure",0.048,0.563,4.314
+"High Humidity, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.067,0.501,4.314
+"High Humidity, Moderate Pressure, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.053,0.501,4.311
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Pressure",0.039,0.558,4.274
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.034,0.555,4.252
+"High Cloud Cover, High Humidity, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.033,0.555,4.252
+"High Humidity, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.075,0.493,4.249
+"High Humidity, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.059,0.493,4.247
+"High Humidity, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Temperature, Moderate Visibility",0.053,0.442,4.243
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Visibility",0.034,0.498,4.235
+High Cloud Cover,"High Rainfall, Moderate Pressure",0.048,0.552,4.232
+"High Humidity, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Temperature",0.068,0.491,4.228
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Visibility",0.033,0.497,4.227
+"High Humidity, Moderate Wind Speed","High Rainfall, Moderate Temperature, Moderate Visibility",0.067,0.44,4.223
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.032,0.749,4.208
+"High Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.032,0.746,4.192
+"High Humidity, Moderate Pressure, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.053,0.517,4.191
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Temperature",High Rainfall,0.039,0.743,4.176
+"High Cloud Cover, Moderate Pressure, Moderate Temperature",High Rainfall,0.039,0.741,4.163
+"High Humidity, Moderate Visibility","High Rainfall, Moderate Temperature",0.088,0.482,4.153
+"High Humidity, Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.053,0.541,4.147
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Wind Speed",High Rainfall,0.038,0.737,4.142
+"High Cloud Cover, High Humidity, Moderate Pressure",High Rainfall,0.048,0.736,4.14
+"High Humidity, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.07,0.51,4.137
+"High Humidity, Moderate Pressure","High Rainfall, Moderate Temperature, Moderate Visibility",0.068,0.43,4.132
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed",High Rainfall,0.039,0.735,4.131
+"High Humidity, Moderate Pressure","High Rainfall, Moderate Temperature",0.076,0.479,4.128
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.04,0.733,4.122
+"High Cloud Cover, Moderate Pressure",High Rainfall,0.048,0.732,4.118
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.033,0.536,4.106
+"High Humidity, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.059,0.505,4.1
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.04,0.729,4.1
+"High Humidity, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.053,0.453,4.097
+"High Cloud Cover, High Humidity, Moderate Temperature",High Rainfall,0.05,0.729,4.096
+"High Humidity, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.067,0.505,4.095
+"High Cloud Cover, High Humidity, Moderate Visibility","High Rainfall, Moderate Pressure",0.04,0.534,4.091
+"High Cloud Cover, High Humidity, Moderate Wind Speed",High Rainfall,0.048,0.726,4.081
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Pressure, Moderate Visibility",0.04,0.479,4.068
+"High Cloud Cover, Moderate Wind Speed",High Rainfall,0.049,0.723,4.065
+"High Humidity, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.07,0.53,4.062
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Visibility",0.033,0.477,4.057
+"High Cloud Cover, High Humidity",High Rainfall,0.061,0.721,4.056
+"High Humidity, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.059,0.529,4.051
+"High Humidity, Moderate Pressure","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.07,0.447,4.044
+"High Cloud Cover, Moderate Temperature",High Rainfall,0.051,0.719,4.044
+"High Cloud Cover, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.033,0.526,4.03
+"High Humidity, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Visibility",0.053,0.474,4.026
+"High Cloud Cover, Moderate Visibility","High Rainfall, Moderate Pressure",0.041,0.525,4.021
+High Humidity,"High Rainfall, Moderate Temperature, Moderate Visibility",0.088,0.417,4.004
+"High Humidity, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.075,0.493,4.003
+High Cloud Cover,"High Rainfall, Moderate Pressure, Moderate Visibility",0.041,0.471,4.001
+High Humidity,"High Rainfall, Moderate Temperature",0.098,0.464,3.998
+High Cloud Cover,High Rainfall,0.062,0.711,3.997
+"High Humidity, Moderate Pressure","High Rainfall, Moderate Wind Speed",0.078,0.492,3.993
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.033,0.71,3.992
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Visibility",0.033,0.469,3.987
+"High Humidity, Moderate Temperature","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.067,0.44,3.98
+"High Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.033,0.708,3.979
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.033,0.707,3.975
+"High Cloud Cover, Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.034,0.705,3.965
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Visibility",High Rainfall,0.04,0.705,3.965
+"High Humidity, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.089,0.488,3.957
+"High Humidity, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Visibility",0.07,0.465,3.956
+"High Cloud Cover, Moderate Pressure, Moderate Visibility",High Rainfall,0.041,0.703,3.952
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.034,0.702,3.944
+"High Humidity, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.068,0.514,3.94
+"High Humidity, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.078,0.512,3.926
+"High Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.034,0.698,3.922
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Visibility",High Rainfall,0.043,0.697,3.92
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.033,0.629,3.92
+"High Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.034,0.629,3.92
+"High Cloud Cover, High Humidity, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.041,0.696,3.914
+"High Humidity, Moderate Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.038,0.51,3.909
+"High Cloud Cover, High Humidity, Moderate Pressure","High Rainfall, Moderate Visibility",0.04,0.626,3.9
+"High Cloud Cover, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.042,0.694,3.899
+"High Cloud Cover, Moderate Pressure","High Rainfall, Moderate Visibility",0.041,0.624,3.89
+"High Cloud Cover, High Humidity, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.041,0.624,3.887
+"High Cloud Cover, High Humidity, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Visibility",0.033,0.624,3.887
+"High Cloud Cover, High Humidity, Moderate Visibility",High Rainfall,0.052,0.691,3.884
+"High Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.042,0.623,3.88
+"High Cloud Cover, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Visibility",0.033,0.623,3.879
+"High Cloud Cover, Moderate Temperature, Moderate Visibility",High Rainfall,0.043,0.689,3.875
+"High Cloud Cover, High Humidity, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.034,0.622,3.874
+"Moderate Pressure, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall",0.068,0.501,3.872
+"High Cloud Cover, High Humidity, Moderate Temperature","High Rainfall, Moderate Visibility",0.043,0.621,3.87
+"High Humidity, Moderate Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.033,0.449,3.868
+"High Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.034,0.619,3.858
+"High Cloud Cover, High Humidity","High Rainfall, Moderate Visibility",0.052,0.619,3.858
+"High Humidity, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.067,0.685,3.852
+"High Humidity, Moderate Pressure, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.053,0.685,3.849
+"High Cloud Cover, Moderate Visibility",High Rainfall,0.054,0.683,3.838
+"High Cloud Cover, Moderate Temperature","High Rainfall, Moderate Visibility",0.043,0.615,3.829
+"High Humidity, Moderate Temperature","High Rainfall, Moderate Pressure",0.076,0.499,3.825
+High Humidity,"High Rainfall, Moderate Visibility, Moderate Wind Speed",0.089,0.422,3.816
+High Cloud Cover,"High Rainfall, Moderate Visibility",0.054,0.612,3.815
+"High Humidity, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Visibility",0.068,0.448,3.809
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.035,0.496,3.798
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.033,0.467,3.792
+"Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.059,0.495,3.791
+"High Humidity, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.075,0.673,3.782
+High Humidity,"High Rainfall, Moderate Wind Speed",0.098,0.466,3.781
+"High Humidity, Moderate Pressure, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.059,0.671,3.775
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.038,0.465,3.775
+"High Humidity, Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.07,0.671,3.77
+"High Humidity, Moderate Visibility","High Rainfall, Moderate Pressure",0.09,0.492,3.769
+"High Humidity, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.089,0.67,3.767
+"Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall",0.088,0.487,3.763
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.033,0.669,3.762
+"Moderate Pressure, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.07,0.486,3.758
+"High Humidity, Moderate Temperature, Moderate Visibility",High Rainfall,0.088,0.668,3.753
+"High Humidity, Moderate Pressure, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.053,0.601,3.747
+"High Humidity, Moderate Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Pressure, Moderate Visibility",0.038,0.441,3.747
+"High Humidity, Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.068,0.666,3.746
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Visibility","High Rainfall, Moderate Temperature",0.035,0.434,3.74
+"High Humidity, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.067,0.6,3.736
+"Moderate Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.033,0.477,3.691
+"High Humidity, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.07,0.592,3.687
+"High Humidity, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.089,0.588,3.665
+"High Humidity, Moderate Pressure, Moderate Wind Speed",High Rainfall,0.078,0.652,3.663
+"High Humidity, Moderate Cloud Cover, Moderate Visibility","High Rainfall, Moderate Temperature",0.046,0.425,3.662
+"High Humidity, Moderate Cloud Cover, Moderate Pressure","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.038,0.405,3.661
+"High Humidity, Moderate Pressure, Moderate Temperature",High Rainfall,0.076,0.651,3.657
+"High Humidity, Moderate Wind Speed",High Rainfall,0.098,0.65,3.655
+"High Humidity, Moderate Pressure, Moderate Visibility",High Rainfall,0.09,0.65,3.655
+"High Humidity, Moderate Cloud Cover, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.048,0.649,3.649
+"High Humidity, Moderate Temperature",High Rainfall,0.098,0.648,3.641
+"High Humidity, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Visibility",0.068,0.584,3.638
+"High Humidity, Moderate Cloud Cover, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.048,0.447,3.63
+"High Humidity, Moderate Temperature","High Rainfall, Moderate Visibility",0.088,0.582,3.624
+"High Humidity, Moderate Cloud Cover, Moderate Temperature","High Rainfall, Moderate Visibility, Moderate Wind Speed",0.033,0.4,3.623
+High Humidity,"High Rainfall, Moderate Pressure, Moderate Visibility",0.09,0.425,3.615
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Visibility",High Rainfall,0.046,0.642,3.609
+"High Humidity, Moderate Cloud Cover, Moderate Temperature","High Rainfall, Moderate Pressure, Moderate Visibility",0.035,0.424,3.609
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.038,0.642,3.608
+"High Humidity, Moderate Visibility",High Rainfall,0.117,0.642,3.607
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.033,0.579,3.605
+High Humidity,"High Rainfall, Moderate Pressure",0.099,0.47,3.598
+"Moderate Visibility, Moderate Wind Speed","High Humidity, High Rainfall",0.089,0.465,3.593
+"Moderate Pressure, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.059,0.633,3.559
+"High Humidity, Moderate Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.035,0.413,3.556
+"High Humidity, Moderate Pressure","High Rainfall, Moderate Visibility",0.09,0.57,3.55
+"High Humidity, Moderate Cloud Cover, Moderate Visibility","High Rainfall, Moderate Pressure",0.05,0.463,3.545
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.035,0.63,3.542
+"High Humidity, Moderate Pressure",High Rainfall,0.099,0.629,3.537
+"Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.075,0.628,3.531
+"Moderate Pressure, Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.059,0.435,3.525
+"Moderate Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.032,0.459,3.521
+"High Humidity, Moderate Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.039,0.458,3.512
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.038,0.563,3.505
+"Moderate Pressure, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Temperature",0.059,0.406,3.497
+"High Humidity, Moderate Cloud Cover, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.048,0.561,3.494
+"High Humidity, Moderate Cloud Cover, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.035,0.616,3.462
+"High Humidity, Moderate Cloud Cover, Moderate Temperature","High Rainfall, Moderate Wind Speed",0.035,0.426,3.456
+High Humidity,"High Rainfall, Moderate Visibility",0.117,0.555,3.456
+High Humidity,High Rainfall,0.129,0.612,3.441
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Visibility",High Rainfall,0.05,0.612,3.441
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Temperature","High Rainfall, Moderate Visibility",0.035,0.552,3.44
+"Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.086,0.449,3.437
+"High Humidity, Moderate Cloud Cover, Moderate Temperature","High Rainfall, Moderate Visibility",0.046,0.55,3.426
+"High Humidity, Moderate Cloud Cover, Moderate Visibility",High Rainfall,0.065,0.607,3.415
+"High Humidity, Moderate Cloud Cover, Moderate Pressure","High Rainfall, Moderate Wind Speed",0.039,0.421,3.413
+"High Humidity, Moderate Cloud Cover, Moderate Temperature","High Rainfall, Moderate Pressure",0.037,0.443,3.392
+"Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Wind Speed",0.075,0.413,3.351
+"High Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.034,0.437,3.349
+"Moderate Temperature, Moderate Visibility","High Rainfall, Moderate Pressure",0.079,0.436,3.339
+"Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.086,0.593,3.334
+"High Humidity, Moderate Cloud Cover, Moderate Wind Speed",High Rainfall,0.05,0.592,3.325
+"High Humidity, Moderate Cloud Cover, Moderate Pressure","High Rainfall, Moderate Visibility",0.05,0.532,3.316
+"Moderate Cloud Cover, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.041,0.587,3.302
+"Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.032,0.586,3.296
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Wind Speed",High Rainfall,0.039,0.585,3.289
+"Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.079,0.582,3.273
+"High Humidity, Moderate Cloud Cover, Moderate Temperature",High Rainfall,0.048,0.582,3.27
+"Moderate Visibility, Moderate Wind Speed",High Rainfall,0.11,0.576,3.24
+"High Humidity, Moderate Cloud Cover, Moderate Pressure, Moderate Temperature",High Rainfall,0.037,0.576,3.236
+"Moderate Temperature, Moderate Visibility",High Rainfall,0.104,0.575,3.234
+"Moderate Pressure, Moderate Visibility","High Humidity, High Rainfall",0.09,0.414,3.198
+"High Humidity, Moderate Cloud Cover","High Rainfall, Moderate Visibility",0.065,0.513,3.195
+"Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility","High Humidity, High Rainfall",0.035,0.408,3.157
+"Moderate Cloud Cover, Moderate Visibility, Moderate Wind Speed","High Rainfall, Moderate Pressure",0.052,0.41,3.142
+"High Humidity, Moderate Cloud Cover","High Rainfall, Moderate Pressure",0.052,0.408,3.129
+"High Humidity, Moderate Cloud Cover, Moderate Pressure",High Rainfall,0.052,0.556,3.128
+"Moderate Cloud Cover, Moderate Pressure, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.052,0.55,3.094
+"Moderate Pressure, Moderate Visibility",High Rainfall,0.118,0.541,3.044
+"High Humidity, Moderate Cloud Cover",High Rainfall,0.068,0.54,3.038
+"Moderate Cloud Cover, Moderate Visibility, Moderate Wind Speed",High Rainfall,0.068,0.538,3.022
+"Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Visibility",High Rainfall,0.045,0.528,2.966
+"Moderate Cloud Cover, Moderate Temperature, Moderate Visibility",High Rainfall,0.06,0.527,2.961
+"High Humidity, Low Wind Speed",High Rainfall,0.03,0.513,2.882
+Moderate Visibility,High Rainfall,0.16,0.503,2.829
+"High Temperature, Moderate Visibility",High Rainfall,0.039,0.502,2.824
+"Moderate Cloud Cover, Moderate Pressure, Moderate Visibility",High Rainfall,0.076,0.495,2.783
+"High Temperature, Moderate Pressure, Moderate Visibility",High Rainfall,0.034,0.493,2.771
+"High Temperature, Moderate Cloud Cover, Moderate Visibility",High Rainfall,0.031,0.49,2.755
+"Moderate Cloud Cover, Moderate Visibility",High Rainfall,0.106,0.461,2.593
+"Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.032,0.412,2.567
+"Moderate Cloud Cover, Moderate Temperature, Moderate Wind Speed","High Rainfall, Moderate Visibility",0.041,0.4,2.492
+"Low Wind Speed, Moderate Pressure, Moderate Visibility",High Rainfall,0.032,0.438,2.46
+"Moderate Cloud Cover, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.044,0.433,2.435
+"Moderate Cloud Cover, Moderate Pressure, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.034,0.433,2.434
+"Moderate Pressure, Moderate Temperature, Moderate Wind Speed",High Rainfall,0.066,0.415,2.332
+"High Pressure, Moderate Visibility",High Rainfall,0.038,0.409,2.302
+"Moderate Temperature, Moderate Wind Speed",High Rainfall,0.084,0.407,2.289

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Explainable AI — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Explainable AI</h1>
+    <p class="subtitle">SHAP-based feature importance for the rainfall prediction model {% if used_shap %}(live SHAP values){% else %}(fallback: native feature importances){% endif %}</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Global feature importance</div>
+  <div class="chart-wrap tall"><canvas id="importanceChart"></canvas></div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Sample per-record explanations</div>
+  {% for s in sample_explanations %}
+    <div style="border-bottom:1px solid var(--border-soft); padding: 12px 0;">
+      <p style="margin:0 0 6px 0;"><strong>{{ s.city }}</strong> — {{ s.date }} — rainfall probability predicted: <span style="color:var(--sky)">{{ s.rain_probability }}%</span></p>
+      <ul class="factor-list">
+        {% for e in s.explanations %}<li>{{ e.text }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% empty %}
+    <div class="note-box">No sample explanations available yet — run <code>python train_models.py</code> first.</div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const imp = {{ top_features_json|safe }};
+new Chart(document.getElementById('importanceChart'), {
+  type: 'bar',
+  data: { labels: imp.labels, datasets: [{ data: imp.values, backgroundColor: '#2fd4c0', borderRadius: 4 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+    scales: { x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks:{color:'#8ea0b8'} }, y: { grid: { display:false }, ticks:{color:'#8ea0b8'} } } }
+});
+</script>
+{% endblock %}

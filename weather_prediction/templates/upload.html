@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Upload Dataset — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Upload Your Own Dataset</h1>
+    <p class="subtitle">Upload a CSV with weather data to validate, preview and preprocess it</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Required columns</div>
+  <p style="font-size:13px; color:var(--text-muted);">date, city, temperature, humidity, pressure, wind_speed, cloud_cover, rainfall (additional columns are welcome and will be used where possible)</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">{{ form.csv_file }}</div>
+    <button class="btn" type="submit">Upload &amp; Analyze</button>
+  </form>
+</div>
+
+{% if error %}
+  <div class="warn-box" style="margin-top:18px;">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+  <div class="kpi-row" style="margin-top:18px; grid-template-columns: repeat(4, 1fr);">
+    <div class="kpi-card"><div class="kpi-label">Rows uploaded</div><div class="kpi-value">{{ result.n_rows }}</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Duplicates removed</div><div class="kpi-value">{{ result.stats.duplicates_removed }}</div></div>
+    <div class="kpi-card coral"><div class="kpi-label">Missing values found</div><div class="kpi-value">{{ result.stats.missing_values_total }}</div></div>
+    <div class="kpi-card teal"><div class="kpi-label">Outliers capped</div><div class="kpi-value">{{ result.stats.outliers_capped }}</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Preview (first 10 rows)</div>
+    <div class="scroll-x">{{ preview|safe }}</div>
+  </div>
+{% endif %}
+{% endblock %}

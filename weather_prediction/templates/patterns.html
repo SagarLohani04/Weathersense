@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Weather Patterns — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Weather Pattern Mining</h1>
+    <p class="subtitle">Association rules (Apriori) discovered from discretized weather conditions</p>
+  </div>
+</div>
+
+<div class="note-box" style="margin-bottom:18px;">
+  Continuous variables (humidity, pressure, cloud cover, temperature, wind speed, visibility) are
+  discretized into Low / Moderate / High bins, then mined for combinations that reliably precede
+  high rainfall, fog or heatwave events. Support = frequency of the pattern; Confidence = reliability
+  of the rule; Lift &gt; 1 means the combination is more predictive than chance.
+</div>
+
+<div class="panel">
+  <div class="panel-title">Discovered rules (sorted by lift)</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Rule (If...)</th><th>Then...</th><th>Support</th><th>Confidence</th><th>Lift</th></tr></thead>
+    <tbody>
+    {% for r in rules %}
+      <tr>
+        <td>{{ r.antecedents }}</td>
+        <td>{{ r.consequents }}</td>
+        <td>{{ r.support }}</td>
+        <td>{{ r.confidence }}</td>
+        <td>{{ r.lift }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">Run <code>python train_models.py</code> to generate association rules.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

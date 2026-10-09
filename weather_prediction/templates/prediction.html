@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Weather Prediction — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Weather Prediction</h1>
+    <p class="subtitle">Enter current conditions to predict tomorrow's weather, rainfall probability and temperature</p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title">Input current conditions</div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-row">
+        <label>{{ form.city.label }}</label>
+        {{ form.city }}
+      </div>
+      <div class="form-row">
+        <label>{{ form.date.label }}</label>
+        {{ form.date }}
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label>{{ form.temperature.label }}</label>{{ form.temperature }}</div>
+        <div class="form-row"><label>{{ form.humidity.label }}</label>{{ form.humidity }}</div>
+        <div class="form-row"><label>{{ form.pressure.label }}</label>{{ form.pressure }}</div>
+        <div class="form-row"><label>{{ form.wind_speed.label }}</label>{{ form.wind_speed }}</div>
+        <div class="form-row"><label>{{ form.cloud_cover.label }}</label>{{ form.cloud_cover }}</div>
+        <div class="form-row"><label>{{ form.rainfall.label }}</label>{{ form.rainfall }}</div>
+        <div class="form-row"><label>{{ form.dew_point.label }}</label>{{ form.dew_point }}</div>
+      </div>
+      {% if form.errors %}<div class="warn-box">Please correct the highlighted fields.</div>{% endif %}
+      <button class="btn" type="submit" style="margin-top:8px;">Predict Weather</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Weather Prediction</div>
+    {% if result %}
+      <p style="color:var(--text-muted); margin-top:0;">{{ result.city }} — {{ result.date }}</p>
+      <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="kpi-card">
+          <div class="kpi-label">Predicted Condition</div>
+          <div class="kpi-value" style="font-size:20px;">{{ result.condition }}</div>
+          <div class="kpi-unit">{{ result.condition_confidence }}% confidence</div>
+        </div>
+        <div class="kpi-card teal">
+          <div class="kpi-label">Rain Probability</div>
+          <div class="kpi-value">{{ result.rain_probability }}<span class="kpi-unit">%</span></div>
+          <div class="kpi-unit">{{ result.rain_prediction }}</div>
+        </div>
+        <div class="kpi-card coral">
+          <div class="kpi-label">Predicted Max Temp (tomorrow)</div>
+          <div class="kpi-value">{{ result.temperature_prediction }}<span class="kpi-unit">°C</span></div>
+        </div>
+      </div>
+
+      <div class="panel-title" style="margin-top:18px;">Risk assessment</div>
+      <div class="grid-2">
+        <div>
+          <p style="font-size:13px; margin:4px 0;">Heatwave Risk: <span class="badge {{ result.risks.heatwave.level|lower }}">{{ result.risks.heatwave.level }}</span></p>
+          <p style="font-size:13px; margin:4px 0;">Heavy Rain Risk: <span class="badge {{ result.risks.heavy_rainfall.level|lower }}">{{ result.risks.heavy_rainfall.level }}</span></p>
+          <p style="font-size:13px; margin:4px 0;">Flood Risk: <span class="badge {{ result.risks.flood.level|lower }}">{{ result.risks.flood.level }}</span></p>
+        </div>
+        <div>
+          <p style="font-size:13px; margin:4px 0;">Drought Risk: <span class="badge {{ result.risks.drought.level|lower }}">{{ result.risks.drought.level }}</span></p>
+          <p style="font-size:13px; margin:4px 0;">Storm Risk: <span class="badge {{ result.risks.storm.level|lower }}">{{ result.risks.storm.level }}</span></p>
+        </div>
+      </div>
+      <p style="font-size:12px; color:var(--text-faint); margin-top:10px;">{{ result.risks.disclaimer }}</p>
+
+      <div class="panel-title" style="margin-top:14px;">Why this prediction (rainfall model{% if result.used_shap %}, SHAP{% endif %})</div>
+      <ul class="factor-list">
+        {% for e in result.explanation %}<li>{{ e.text }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <div class="note-box">Fill in the form and click <strong>Predict Weather</strong> to see the model's output here.</div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Prediction history</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Time</th><th>City</th><th>Prediction</th><th>Model(s) used</th><th>Confidence</th></tr></thead>
+    <tbody>
+    {% for h in history %}
+      <tr><td>{{ h.timestamp|date:"Y-m-d H:i" }}</td><td>{{ h.city }}</td><td>{{ h.predicted_value }}</td><td>{{ h.model_used }}</td><td>{{ h.confidence }}</td></tr>
+    {% empty %}
+      <tr><td colspan="5">No predictions made yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

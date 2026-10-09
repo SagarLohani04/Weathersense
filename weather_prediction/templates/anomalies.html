@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Anomalies — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Anomaly Detection</h1>
+    <p class="subtitle">Isolation Forest + Z-score/IQR combined to flag unusual weather records</p>
+  </div>
+</div>
+
+<div class="kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+  <div class="kpi-card"><div class="kpi-label">Records checked</div><div class="kpi-value">{{ summary.total_records_checked }}</div></div>
+  <div class="kpi-card coral"><div class="kpi-label">Anomalies found</div><div class="kpi-value">{{ summary.total_anomalies }}</div></div>
+  <div class="kpi-card amber"><div class="kpi-label">Anomaly rate</div><div class="kpi-value">{{ summary.anomaly_rate_pct }}<span class="kpi-unit">%</span></div></div>
+</div>
+
+<div class="panel">
+  <div class="filter-bar" style="margin-bottom:14px;">
+    <a class="pill" href="?">All</a>
+    <a class="pill" href="?severity=Low">Low</a>
+    <a class="pill" href="?severity=Medium">Medium</a>
+    <a class="pill" href="?severity=High">High</a>
+    <a class="pill" href="?severity=Critical">Critical</a>
+  </div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Date</th><th>City</th><th>Parameter</th><th>Value</th><th>Expected Range</th><th>Anomaly Score</th><th>Severity</th></tr></thead>
+    <tbody>
+    {% for a in rows %}
+      <tr>
+        <td>{{ a.date }}</td><td>{{ a.city }}</td><td>{{ a.parameter }}</td>
+        <td>{{ a.value }}</td><td>{{ a.expected_range }}</td><td>{{ a.anomaly_score }}</td>
+        <td><span class="badge {{ a.severity|lower }}">{{ a.severity }}</span></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="7">No anomalies match this filter.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

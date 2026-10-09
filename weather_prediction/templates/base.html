@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}WeatherSense AI{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/chart.umd.js' %}"></script>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="app-shell" id="appShell">
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="mark">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 16.5a4.5 4.5 0 0 1 .7-8.95 6 6 0 0 1 11.4 2A4.5 4.5 0 0 1 18.5 18H8a4 4 0 0 1-1-7.5"/>
+        </svg>
+        Weather<span>Sense</span> AI
+      </div>
+      <div class="tag">Weather Data Mining &amp; Prediction Platform</div>
+    </div>
+
+    <div class="nav-scroll">
+      <div class="nav-group-label">Overview</div>
+      <a class="nav-link-item {% if active_page == 'dashboard' %}active{% endif %}" href="{% url 'weather:dashboard' %}">{% include "icons/dashboard.html" %}<span>Dashboard</span></a>
+
+      <div class="nav-group-label">Prediction</div>
+      <a class="nav-link-item {% if active_page == 'prediction' %}active{% endif %}" href="{% url 'weather:prediction' %}">{% include "icons/predict.html" %}<span>Weather Prediction</span></a>
+      <a class="nav-link-item {% if active_page == 'algorithm_showdown' %}active{% endif %}" href="{% url 'weather:algorithm_showdown' %}">{% include "icons/showdown.html" %}<span>Algorithm Showdown</span><span class="nav-badge">NEW</span></a>
+      <a class="nav-link-item {% if active_page == 'forecast' %}active{% endif %}" href="{% url 'weather:forecast' %}">{% include "icons/forecast.html" %}<span>Forecast</span></a>
+
+      <div class="nav-group-label">Data Mining</div>
+      <a class="nav-link-item {% if active_page == 'analysis' %}active{% endif %}" href="{% url 'weather:analysis' %}">{% include "icons/mining.html" %}<span>Data Mining &amp; EDA</span></a>
+      <a class="nav-link-item {% if active_page == 'patterns' %}active{% endif %}" href="{% url 'weather:patterns' %}">{% include "icons/patterns.html" %}<span>Weather Patterns</span></a>
+      <a class="nav-link-item {% if active_page == 'clustering' %}active{% endif %}" href="{% url 'weather:clustering' %}">{% include "icons/clustering.html" %}<span>Clustering</span></a>
+      <a class="nav-link-item {% if active_page == 'anomalies' %}active{% endif %}" href="{% url 'weather:anomalies' %}">{% include "icons/anomalies.html" %}<span>Anomalies</span></a>
+
+      <div class="nav-group-label">Models</div>
+      <a class="nav-link-item {% if active_page == 'model_comparison' %}active{% endif %}" href="{% url 'weather:model_comparison' %}">{% include "icons/comparison.html" %}<span>Model Comparison</span></a>
+      <a class="nav-link-item {% if active_page == 'explainable_ai' %}active{% endif %}" href="{% url 'weather:explainable_ai' %}">{% include "icons/explainable.html" %}<span>Explainable AI</span></a>
+
+      <div class="nav-group-label">Explore</div>
+      <a class="nav-link-item {% if active_page == 'city_comparison' %}active{% endif %}" href="{% url 'weather:city_comparison' %}">{% include "icons/city.html" %}<span>City Comparison</span></a>
+      <a class="nav-link-item {% if active_page == 'upload' %}active{% endif %}" href="{% url 'weather:upload' %}">{% include "icons/upload.html" %}<span>Upload Dataset</span></a>
+      <a class="nav-link-item {% if active_page == 'reports' %}active{% endif %}" href="{% url 'weather:reports' %}">{% include "icons/reports.html" %}<span>Reports</span></a>
+      <a class="nav-link-item {% if active_page == 'about' %}active{% endif %}" href="{% url 'weather:about' %}">{% include "icons/about.html" %}<span>About Project</span></a>
+
+      <div class="nav-group-label">Admin</div>
+      <a class="nav-link-item" href="/admin/" target="_blank">{% include "icons/admin.html" %}<span>Django Admin</span></a>
+    </div>
+  </nav>
+
+  <div class="main-col">
+    <div class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="topbar-brand">Weather<span>Sense</span> AI</div>
+    </div>
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const appShell = document.getElementById('appShell');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  function toggleSidebar() { appShell.classList.toggle('sidebar-open'); }
+  if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
+  if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

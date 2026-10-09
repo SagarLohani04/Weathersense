@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}About — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>About WeatherSense AI</h1>
+    <p class="subtitle">A Data Mining and Machine Learning Framework for Weather Forecasting, Pattern Discovery, Anomaly Detection and Risk Analysis</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Data Warehousing &amp; Mining concepts demonstrated</div>
+  <div class="grid-3">
+    <div>
+      <h4>Data preprocessing</h4>
+      <ul class="factor-list"><li>Missing-value treatment</li><li>Outlier detection (IQR)</li><li>Normalization / scaling</li><li>Categorical encoding</li></ul>
+    </div>
+    <div>
+      <h4>Data exploration</h4>
+      <ul class="factor-list"><li>Summary statistics</li><li>Univariate / bivariate visualization</li><li>Correlation analysis</li></ul>
+    </div>
+    <div>
+      <h4>Data mining</h4>
+      <ul class="factor-list"><li>Association rule mining (Apriori)</li><li>K-Means clustering</li><li>Isolation Forest anomaly detection</li></ul>
+    </div>
+    <div>
+      <h4>Predictive mining</h4>
+      <ul class="factor-list"><li>Classification (6 algorithms compared)</li><li>Regression (5 algorithms compared)</li><li>SARIMA time-series forecasting</li></ul>
+    </div>
+    <div>
+      <h4>Knowledge discovery</h4>
+      <ul class="factor-list"><li>Discovered weather patterns</li><li>Mann-Kendall trend tests</li><li>SHAP feature importance</li></ul>
+    </div>
+    <div>
+      <h4>Decision support</h4>
+      <ul class="factor-list"><li>Rule + ML-based risk engine</li><li>Heatwave / flood / drought / storm scoring</li></ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Real-world applications</div>
+  <div class="grid-3">
+    <div><h4>Agriculture</h4><p style="font-size:13px;color:var(--text-muted)">Crop planning and rainfall monitoring based on seasonal patterns.</p></div>
+    <div><h4>Water resource management</h4><p style="font-size:13px;color:var(--text-muted)">Rainfall accumulation and drought-risk analysis.</p></div>
+    <div><h4>Disaster risk analysis</h4><p style="font-size:13px;color:var(--text-muted)">Heavy-rainfall and extreme-weather indicators for early awareness.</p></div>
+    <div><h4>Transportation</h4><p style="font-size:13px;color:var(--text-muted)">Weather-risk awareness for route and schedule planning.</p></div>
+    <div><h4>Energy</h4><p style="font-size:13px;color:var(--text-muted)">Temperature and solar-radiation pattern analysis for demand planning.</p></div>
+    <div><h4>Urban planning</h4><p style="font-size:13px;color:var(--text-muted)">Historical rainfall and extreme-weather pattern analysis.</p></div>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="grid-2">
+    <div>
+      <h4>Limitations</h4>
+      <ul class="factor-list">
+        <li>All data is synthetically generated for academic purposes and does not represent real observed weather.</li>
+        <li>Risk indicators are model-based outputs, not official emergency warnings.</li>
+        <li>Trend analysis reflects patterns in the synthetic dataset only — no climate causation is claimed.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Future scope</h4>
+      <ul class="factor-list">
+        <li>Integrate a live weather API for real-time data ingestion.</li>
+        <li>Add an LSTM sequence model for multi-day forecasting where GPU resources allow.</li>
+        <li>Extend the risk engine with district-level granularity and satellite imagery.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
